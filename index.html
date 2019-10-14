@@ -2,15 +2,30 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>></title>
+    <script src="draw.js"></script>
+    <webview id="settings" nodeintegration></webview>
+    <style>
+		img {
+			filter: opacity(0.5);
+			border-radius: 20px;
+			width: 99%;
+			height: 99%;
+		}
+		canvas{
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			width: 99%;
+			height: 99%;
+		}
+    </style>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
+    
+    <canvas id="c"></canvas>
+    
+    
+    <script src="canv.js"></script>
   </body>
 </html>

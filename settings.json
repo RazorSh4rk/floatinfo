@@ -1,0 +1,16 @@
+{
+	"windowSize" : {
+		"width" : 300,
+		"height" : 200
+	},
+	"windowPosition" : {
+		"x" : 1600,
+		"y" : 0
+	},
+	"frame": false,
+	"transparency": true,
+	"refreshRate" : 500,
+	"mainColor" : "#0f0",
+	"barColor" : "#f00",
+	"font" : "14px Arial"
+}

@@ -1,21 +1,35 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
+const os = require('os')
+const fs = require('fs')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+global.settings = {}
 
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: global.settings.windowSize.width,
+    height: global.settings.windowSize.height,
+    x: global.settings.windowPosition.x,
+    y: global.settings.windowPosition.y,
+    frame: global.settings.frame,
+    transparent: global.settings.transparency,
     webPreferences: {
+      webSecurity: false,
+      nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
     }
   })
-
+  global.sharedObject = {os: os}
+  setInterval( () => {
+		global.sharedObject = {
+		  os: os
+		}
+	}, global.settings.refreshRate)
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
@@ -34,7 +48,23 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', ()=>{
+	setTimeout( () => {
+		let path = '/home/' + require("os").userInfo().username + '/.floatinfo'
+		console.log('trying to find settings at ' + path)
+		if(!fs.existsSync(path)){
+			console.log('creating new settings file...')
+			let settings = fs.readFileSync('settings.json', 'utf8')
+			fs.writeFileSync(path, settings, 'utf8')
+			global.settings = JSON.parse(settings)
+		} else {
+			console.log('found settings file')
+			global.settings = JSON.parse(fs.readFileSync(path))
+		}
+		
+		createWindow()
+	}, 300)
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
