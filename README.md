@@ -1,4 +1,4 @@
-![image]("./sample.png" "hi")
+![image](sample.png)
 
 Simple floating system info for *nix (might work on windows, idk)
 
