@@ -9,7 +9,7 @@
   "author": "razor",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^6.0.12"
+    "electron": "^7.2.4"
   },
   "dependencies": {}
 }
